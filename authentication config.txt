@@ -1,0 +1,16 @@
+
+
+
+
+
+
+
+key chain cisco
+key 1
+key cisco123
+
+
+ip auth mode ei 7 md
+ipv auth mode ei 7 md
+ip auth key ei 7 cisco
+ipv auth key ei 7 cisco

@@ -1,0 +1,10 @@
+********************************************************************
+                                                                   *
+This is a simple network I designed to practice EIGRP configuration*
+                                                                   *
+********************************************************************
+
+Configure Eigrp with ASN 7 for this AS
+configure EIGRP Authentication with Key-string = cisco123 use MD5
+configure router ids with 1.1.1.x as the base
+use ipv4 interface host ip number for the Ipv6 host ip number

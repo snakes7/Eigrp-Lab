@@ -1,0 +1,139 @@
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname R5
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+ipv6 unicast-routing
+!
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX152441WN-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+key chain cisco
+ key 1
+  key-string 0822455D0A16544541
+!
+interface GigabitEthernet0/0
+ description connection to 10.10.10.13 G0/1 on R2
+ ip address 10.10.10.14 255.255.255.252
+ ip authentication mode eigrp 7 md5
+ ipv6 authentication mode eigrp 7 md5
+ ip authentication key-chain eigrp 7 cisco
+ ipv6 authentication key-chain eigrp 7 cisco
+ duplex auto
+ speed auto
+ ipv6 address FE80::14 link-local
+ ipv6 address 2003:ACAD:A:5::14/64
+ ipv6 eigrp 7
+!
+interface GigabitEthernet0/1
+ description connection to 10.10.10.5 G0/1 on R3
+ ip address 10.10.10.6 255.255.255.252
+ ip authentication mode eigrp 7 md5
+ ipv6 authentication mode eigrp 7 md5
+ ip authentication key-chain eigrp 7 cisco
+ ipv6 authentication key-chain eigrp 7 cisco
+ duplex auto
+ speed auto
+ ipv6 address FE80::6 link-local
+ ipv6 address 2003:ACAD:A:2::6/64
+ ipv6 eigrp 7
+!
+interface GigabitEthernet0/2
+ description connection to 10.10.10.18 G0/0 on R4
+ ip address 10.10.10.17 255.255.255.252
+ ip authentication mode eigrp 7 md5
+ ipv6 authentication mode eigrp 7 md5
+ ip authentication key-chain eigrp 7 cisco
+ ipv6 authentication key-chain eigrp 7 cisco
+ duplex auto
+ speed auto
+ ipv6 address FE80::17 link-local
+ ipv6 address 2003:ACAD:A:6::17/64
+ ipv6 eigrp 7
+!
+interface Serial0/0/0
+ description connection to 10.10.10.30 S0/0/0 on R6
+ ip address 10.10.10.29 255.255.255.252
+ ip authentication mode eigrp 7 md5
+ ipv6 authentication mode eigrp 7 md5
+ ip authentication key-chain eigrp 7 cisco
+ ipv6 authentication key-chain eigrp 7 cisco
+ ipv6 address FE80::30 link-local
+ ipv6 address 2003:ACAD:A:8::30/64
+ ipv6 eigrp 7
+ clock rate 2000000
+!
+interface Serial0/0/1
+ no ip address
+ clock rate 2000000
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router eigrp 7
+ eigrp router-id 1.1.1.5
+ network 10.10.10.28 0.0.0.3
+ network 10.10.10.4 0.0.0.3
+ network 10.10.10.12 0.0.0.3
+ network 10.10.10.16 0.0.0.3
+!
+ipv6 router eigrp 7
+ eigrp router-id 1.1.1.5
+ no shutdown 
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+

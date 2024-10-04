@@ -1,0 +1,135 @@
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R1
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+ipv6 unicast-routing
+!
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX15240JKM-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+key chain cisco
+ key 1
+  key-string cisco123
+!
+interface GigabitEthernet0/0
+ description connection to 10.10.10.10 g0/0 on R4
+ ip address 10.10.10.9 255.255.255.252
+ ip authentication mode eigrp 7 md5
+ ipv6 authentication mode eigrp 7 md5
+ ip authentication key-chain eigrp 7 cisco
+ ipv6 authentication key-chain eigrp 7 cisco
+ duplex auto
+ speed auto
+ ipv6 address FE80::9 link-local
+ ipv6 address 2003:ACAD:A:4::9/64
+ ipv6 eigrp 7
+!
+interface GigabitEthernet0/1
+ description connection to 10.10.10.2 g0/0 on R3
+ ip address 10.10.10.1 255.255.255.252
+ ip authentication mode eigrp 7 md5
+ ipv6 authentication mode eigrp 7 md5
+ ip authentication key-chain eigrp 7 cisco
+ ipv6 authentication key-chain eigrp 7 cisco
+ duplex auto
+ speed auto
+ ipv6 address FE80::1 link-local
+ ipv6 address 2003:ACAD:A:1::1/64
+ ipv6 eigrp 7
+!
+interface GigabitEthernet0/2
+ description connection to 192.168.1.128/25 lan
+ ip address 192.168.1.129 255.255.255.128
+ duplex auto
+ speed auto
+ ipv6 address FE80::129 link-local
+ ipv6 address 2003:ACAD:A:10::129/64
+ ipv6 eigrp 7
+!
+interface Serial0/0/0
+ description connection to 10.10.10.21 S0/0/0 on R4
+ ip address 10.10.10.22 255.255.255.252
+ ip authentication mode eigrp 7 md5
+ ipv6 authentication mode eigrp 7 md5
+ ip authentication key-chain eigrp 7 cisco
+ ipv6 authentication key-chain eigrp 7 cisco
+ ipv6 address FE80::22 link-local
+ ipv6 address 2003:ACAD:A:7::22/64
+ ipv6 eigrp 7
+ clock rate 2000000
+!
+interface Serial0/0/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router eigrp 7
+ eigrp router-id 1.1.1.1
+ passive-interface GigabitEthernet0/2
+ network 192.168.1.128 0.0.0.127
+ network 10.10.10.8 0.0.0.3
+ network 10.10.10.20 0.0.0.3
+ network 10.10.10.0 0.0.0.3
+!
+ipv6 router eigrp 7
+ eigrp router-id 1.1.1.1
+ no shutdown 
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
